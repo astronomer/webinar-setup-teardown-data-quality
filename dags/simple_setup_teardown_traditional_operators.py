@@ -16,7 +16,7 @@ def return_message(msg, fail_task=False):
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["toy", "setup/teardown", "traditional operators"],
+    tags=["toy", "setup/teardown", "traditional operators", "webinar"],
 )
 def simple_setup_teardown_traditional_operators():
     upstream_task_obj = PythonOperator(

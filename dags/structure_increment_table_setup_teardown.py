@@ -17,7 +17,7 @@ SCHEMA_CHANGED = False
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["syntax", "data quality", "setup/teardown"],
+    tags=["syntax", "data quality", "setup/teardown", "webinar"],
 )
 def structure_increment_table_setup_teardown():
     @task
@@ -200,7 +200,7 @@ def structure_increment_table_setup_teardown():
         def drop_clone():
             """Drop the cloned table."""
             return "Dropped the cloned table!"
-        
+
         drop_clone_obj = drop_clone()
 
         @task(

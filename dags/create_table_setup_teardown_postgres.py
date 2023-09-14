@@ -1,7 +1,5 @@
 """
-## Toy DAG to show a simple setup/teardown workflow
-
-This DAG shows a simple setup/teardown workflow pipeline with mock tasks.
+## Use setup/ teardown with data quality checks during table creation
 """
 
 from airflow.decorators import dag, task, task_group
@@ -22,7 +20,7 @@ SCHEMA_NAME = "public"
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["setup/teardown", "syntax", "data quality"],
+    tags=["setup/teardown", "syntax", "data quality", "webinar"],
     default_args={"postgres_conn_id": POSTGRES_CONN_ID, "conn_id": POSTGRES_CONN_ID},
 )
 def create_table_setup_teardown_postgres():
@@ -69,7 +67,7 @@ def create_table_setup_teardown_postgres():
                 task_id="test_cols",
                 retry_on_failure="True",
                 table=f"{SCHEMA_NAME}.{TABLE_NAME}_tmp",
-                column_mapping={"park_code": {"unique_check": {"equal_to": 0}}},
+                column_mapping={"acres": {"null_check": {"equal_to": 0}}},
                 accept_none="True",
             )
 
@@ -118,6 +116,7 @@ def create_table_setup_teardown_postgres():
 
         # define setup/ teardown relationship
         drop_tmp.as_teardown(setups=[create_tmp, load_data_into_tmp])
+        drop_backup.as_teardown(setups=[swap])
 
         @task_group
         def validate():

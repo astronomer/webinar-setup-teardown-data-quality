@@ -8,7 +8,7 @@ FAIL_WORKER_ON_CLUSTER = False
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["setup/teardown", "toy", "decorators"],
+    tags=["setup/teardown", "toy", "decorators", "webinar"],
 )
 def simple_setup_teardown_decorators():
     @task

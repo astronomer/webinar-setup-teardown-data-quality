@@ -8,7 +8,7 @@ FAIL_WORKER_ON_CLUSTER = False
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["toy"],
+    tags=["toy", "webinar"],
 )
 def simple_dag_no_setup_teardown():
     @task
