@@ -1,5 +1,11 @@
 """
-## Use setup/ teardown with data quality checks during table creation
+## Use setup/ teardown with data quality checks during creation of a Postgres table
+
+This DAG demonstrates a table creation pattern which includes both halting and 
+non-halting data quality checks. Setup/ teardown tasks are used to create and
+drop temporary tables.
+
+To use this DAG you will need to provide the `postgres_default` connection.
 """
 
 from airflow.decorators import dag, task, task_group
@@ -20,7 +26,7 @@ SCHEMA_NAME = "public"
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["setup/teardown", "syntax", "data quality", "webinar"],
+    tags=["setup/teardown", "data quality", "webinar", "use case"],
     default_args={"postgres_conn_id": POSTGRES_CONN_ID, "conn_id": POSTGRES_CONN_ID},
 )
 def create_table_setup_teardown_postgres():

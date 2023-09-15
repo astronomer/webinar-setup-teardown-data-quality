@@ -1,9 +1,16 @@
+"""
+## Simple DAG showing setup and teardown methods used on traditional operators
+
+This is a toy DAG that demonstrates a pipeline failure with setup and teardown tasks
+implemented. Set FAIL_WORKER_ON_CLUSTER to True to see the failure.
+"""
+
 from airflow.decorators import dag
 from pendulum import datetime
 from airflow.operators.python import PythonOperator
 
 
-FAIL_WORKER_ON_CLUSTER = True
+FAIL_WORKER_ON_CLUSTER = False
 
 
 def return_message(msg, fail_task=False):

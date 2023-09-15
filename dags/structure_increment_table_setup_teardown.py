@@ -1,7 +1,9 @@
 """
-##
+## Explore a pattern of incrementally updating a table with data quality checks and setup/teardown tasks
 
-
+This is a structure DAG that demonstrates a pattern of incrementally updating a table. 
+It includes three sets of data quality checks and three setup/ teardown workflows.
+This DAG is meant to be used as a pattern blueprint to create your own ETL/ELT pipelines.
 """
 
 from airflow.decorators import dag, task, task_group

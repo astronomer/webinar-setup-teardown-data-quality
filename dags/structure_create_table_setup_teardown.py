@@ -1,7 +1,10 @@
 """
-## Toy DAG to show a simple setup/teardown workflow
+## Structure DAG showing a create table pattern with setup/ teardown tasks
 
-This DAG shows a simple setup/teardown workflow pipeline with mock tasks.
+This is a structure DAG that demonstrates a pattern of creating a table with 
+setup/ teardown tasks and data quality checks. 
+This DAG is meant to be used as a pattern blueprint to create your 
+own ETL/ELT pipelines.
 """
 
 from airflow.decorators import dag, task, task_group, setup, teardown

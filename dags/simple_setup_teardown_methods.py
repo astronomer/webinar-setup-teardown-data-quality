@@ -1,4 +1,11 @@
-from airflow.decorators import dag, task, task_group, setup, teardown
+"""
+## Simple DAG showing setup and teardown methods used on TaskFlow API tasks
+
+This is a toy DAG that demonstrates a pipeline failure with setup and teardown tasks
+implemented. Set FAIL_WORKER_ON_CLUSTER to True to see the failure.
+"""
+
+from airflow.decorators import dag, task
 from pendulum import datetime
 
 FAIL_WORKER_ON_CLUSTER = False

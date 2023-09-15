@@ -1,7 +1,8 @@
 """
-## 
+## Structure DAG showing a create table pattern with no setup/ teardown tasks
 
-
+This is a structure DAG that demonstrates a pattern of creating a table with
+data quality checks but no setup/ teardown tasks.
 """
 
 from airflow.decorators import dag, task, task_group

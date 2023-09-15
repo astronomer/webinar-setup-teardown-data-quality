@@ -1,7 +1,14 @@
 """
-## Toy DAG to show a simple setup/teardown workflow
+## Use setup/ teardown with data quality checks during creation of a Snowflake table
 
-This DAG shows a simple setup/teardown workflow pipeline with mock tasks.
+This DAG demonstrates a table creation pattern which includes both halting and 
+non-halting data quality checks. Setup/ teardown tasks are used to create and
+drop temporary tables.
+
+To use this DAG you will need to load the `parks.csv` file into an S3 bucket
+at the S3_DATA_LOCATION specified below. You will also need to set the `AWS_ACCESS_KEY_ID`
+and `AWS_SECRET_KEY_ID` environment variables to the appropriate values and provide a
+Snowflake connection with the name `snowflake_default`.
 """
 
 from airflow.decorators import dag, task, task_group
@@ -19,12 +26,13 @@ TABLE_NAME = "national_parks"
 SCHEMA_NAME = "TAMARAFINGERLIN"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY_ID = os.getenv("AWS_SECRET_KEY_ID")
+S3_DATA_LOCATION = "s3://toy-datasets-stage/parks.csv"
 
 @dag(
     start_date=datetime(2023, 8, 1),
     schedule=None,
     catchup=False,
-    tags=["setup/teardown", "syntax", "data quality"],
+    tags=["setup/teardown", "data quality"],
     default_args={"snowflake_conn_id": SNOWFLAKE_CONN_ID, "conn_id": SNOWFLAKE_CONN_ID},
 )
 def create_table_setup_teardown_snowflake():

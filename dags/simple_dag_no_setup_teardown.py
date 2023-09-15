@@ -1,3 +1,8 @@
+"""
+## Simple DAG with no setup or teardown for demonstration purposes
+
+"""
+
 from airflow.decorators import dag, task
 from pendulum import datetime
 
