@@ -87,7 +87,18 @@ def create_table_setup_teardown_postgres():
         swap = PostgresOperator(
             task_id="swap",
             sql=f"""
-                ALTER TABLE {TABLE_NAME} RENAME TO {TABLE_NAME}_backup;
+                DO
+                $$
+                BEGIN
+                IF EXISTS (
+                    SELECT 1 FROM information_schema.tables 
+                    WHERE table_name = '{TABLE_NAME}' AND table_schema = 'public'
+                ) 
+                THEN
+                    EXECUTE 'ALTER TABLE ' || '{TABLE_NAME}' || ' RENAME TO ' || '{TABLE_NAME}_backup';
+                END IF;
+                END
+                $$;
                 CREATE TABLE {TABLE_NAME} AS SELECT * FROM {TABLE_NAME}_tmp;
                 """,
         )
@@ -95,14 +106,14 @@ def create_table_setup_teardown_postgres():
         drop_tmp = PostgresOperator(
             task_id="drop_tmp",
             sql=f"""
-                DROP TABLE {TABLE_NAME}_tmp;
+                DROP TABLE IF EXISTS {TABLE_NAME}_tmp;
                 """,
         )
 
         drop_backup = PostgresOperator(
             task_id="drop_backup",
             sql=f"""
-                DROP TABLE {TABLE_NAME}_backup;
+                DROP TABLE IF EXISTS {TABLE_NAME}_backup;
                 """,
         )
 
